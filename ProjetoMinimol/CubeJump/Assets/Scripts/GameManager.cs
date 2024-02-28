@@ -10,7 +10,7 @@ public enum GameState
     STATE_VICTORY,
     STATE_DEFEAT
 }
-public static class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
