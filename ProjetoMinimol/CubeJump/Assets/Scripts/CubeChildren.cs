@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,39 +6,42 @@ using UnityEngine;
 public class CubeChildren : MonoBehaviour
 {
     // Start is called before the first frame update
-    public bool onFloor = false;
+    [HideInInspector]public bool onFloor = false;
+    public List<CubeCollider> cubeColliders;
+    public CubeCollider lastCubeOnFloor;
 
-    private float lastXRotation = 0;
+    public static event Action OnTouchDown;
+
     private void OnCollisionEnter(Collision collision)
     {
+        if (onFloor)
+            return;
         if (collision.collider.gameObject.tag == "Floor")
         {
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             onFloor = true;
+            foreach (var cube in cubeColliders)
+            {
+                if (cube.IsThisLastFace == true && lastCubeOnFloor != cube)
+                {
+                    lastCubeOnFloor = cube;
+                    Debug.Log("PONTO!");
+                    OnTouchDown?.Invoke();
+                }
+            }
         }
     }
     void Start()
     {
-        
+        lastCubeOnFloor = cubeColliders[0];
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log("angle valid? " + transform.localRotation.eulerAngles.x);
 
-        Debug.Log("angle " + transform.rotation.x);
-        if (IsValidAngle())
-        {
-            if (transform.rotation.x != lastXRotation) ;
-        }
     }
 
-    private bool IsValidAngle()
-    {
-        if (transform.rotation.eulerAngles.x == 0 || transform.rotation.x == 180 || transform.rotation.x == 90 || transform.rotation.x == -90 || transform.rotation.x == -180)
-            return true;
-        else
-            return false;
-    }
 }

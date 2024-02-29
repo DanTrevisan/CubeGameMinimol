@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,9 +13,15 @@ public class InputPlayer : MonoBehaviour
     public int maxChildren = 20;
     public int minRotation = 50;
     public int maxRotation = 100;
+    public Vector2 minMaxX;
+    public Vector2 minMaxZ;
     private InputAction JumpAction;
-
+    private bool didScorePointThisJump = false;
+    public GameObject CubeObject;
     private List<CubeChildren> ChildrenObjects;
+
+    public static event Action OnPointScore;
+
 
     private void Awake()
     {
@@ -27,11 +34,40 @@ public class InputPlayer : MonoBehaviour
         JumpAction = InputMap.Main.Jump;
         JumpAction.Enable();
         JumpAction.performed += Jump;
+        CubeChildren.OnTouchDown += OnTouchDown;
     }
 
+    
     private void OnDisable()
     {
         JumpAction.Disable();
+        CubeChildren.OnTouchDown -= OnTouchDown;
+
+    }
+
+    private void OnTouchDown()
+    {
+        if(ChildrenObjects.Count < maxChildren && didScorePointThisJump == false)
+        {
+            didScorePointThisJump = true;
+            Vector3 instantiatePos = new Vector3(UnityEngine.Random.Range(minMaxX.x, minMaxX.y), 0.5f, UnityEngine.Random.Range(minMaxZ.x, minMaxZ.y));
+            GameObject cube = GameObject.Instantiate(CubeObject, instantiatePos, this.transform.rotation, this.transform);
+            ChildrenObjects.Add(cube.GetComponent<CubeChildren>());
+        }
+    }
+
+    private void Jump(InputAction.CallbackContext context)
+    {
+        didScorePointThisJump = false;
+        foreach (var cubeChild in ChildrenObjects)
+        {
+            if (cubeChild.onFloor)
+            {
+                cubeChild.GetComponent<Rigidbody>().AddForce(JumpForce);
+                EulerAngleVelocity = new Vector3(UnityEngine.Random.Range(minRotation - 1, maxRotation), 0, 0);
+                cubeChild.onFloor = false;
+            }
+        }
 
     }
 
@@ -49,17 +85,5 @@ public class InputPlayer : MonoBehaviour
         }
     }
 
-    private void Jump(InputAction.CallbackContext context)
-    {
-        foreach (var cubeChild in ChildrenObjects)
-        {
-            if (cubeChild.onFloor)
-            {
-                cubeChild.GetComponent<Rigidbody>().AddForce(JumpForce);
-                EulerAngleVelocity = new Vector3(Random.Range(minRotation - 1, maxRotation), 0, 0);
-                cubeChild.onFloor = false;
-            }
-        }
-        
-    }
+    
 }
