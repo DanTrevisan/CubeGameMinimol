@@ -226,7 +226,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8034988281025669986}
         m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
-        m_MethodName: StartP1Game
+        m_MethodName: CallResetGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1612,6 +1612,7 @@ MonoBehaviour:
   start2pGame: {fileID: 11400000, guid: 674156ccdc581aa42adb0cbda7c0d4b2, type: 2}
   defeatChannel: {fileID: 11400000, guid: b21071d7eef7d4c488a43f216be9b1e8, type: 2}
   victoryChannel: {fileID: 11400000, guid: 4c23231e21fbd4544894c36c652cbbe5, type: 2}
+  resetChannel: {fileID: 11400000, guid: f24780baa6596e14cbf924da85df4a79, type: 2}
   startUI: {fileID: 3983668695821532486}
   scoreUI: {fileID: 94765882511257936}
   endUI: {fileID: 5289083529880628526}

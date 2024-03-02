@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour
     private VoidEventChannelSO defeatChannel;
     [SerializeField]
     private VoidEventChannelSO victoryChannel;
+    [SerializeField]
+    private VoidEventChannelSO resetChannel;
     // Start is called before the first frame update
 
     public GameObject startUI;
@@ -58,6 +60,16 @@ public class UIManager : MonoBehaviour
         start2pGame.RaiseEvent();
         scoreUI.SetActive(true);
         startUI.SetActive(false);
+
+    }
+
+    public void CallResetGame()
+    {
+        endUI.SetActive(false);
+        scoreUI.SetActive(false);
+        startUI.SetActive(true);
+        playerTurnUI.SetActive(false);
+        resetChannel.RaiseEvent();
 
     }
 }

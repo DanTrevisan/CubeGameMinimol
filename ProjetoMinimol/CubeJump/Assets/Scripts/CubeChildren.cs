@@ -39,6 +39,8 @@ public class CubeChildren : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (GameManager.GameState != GameState.STATE_PLAYING)
+            return;
         if (other.gameObject.tag == "Defeat")
         {
             m_defeatChannnel.RaiseEvent();

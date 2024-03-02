@@ -52,6 +52,7 @@ MonoBehaviour:
   minMaxX: {x: -9, y: 9}
   minMaxZ: {x: -9, y: 9}
   CubeObject: {fileID: 5581330919338929743, guid: c7983dcba5be3bf429ccae652d9b359d, type: 3}
+  resetChannel: {fileID: 11400000, guid: f24780baa6596e14cbf924da85df4a79, type: 2}
 --- !u!1001 &5832057476331215651
 PrefabInstance:
   m_ObjectHideFlags: 0

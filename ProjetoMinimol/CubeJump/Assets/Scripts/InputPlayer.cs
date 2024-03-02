@@ -5,10 +5,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 public class InputPlayer : MonoBehaviour
 {
-    // Start is called before the first frame update
     public Input InputMap;
     public Vector3 JumpForce;
-
     public int maxChildren = 20;
     public int minRotation = 50;
     public int maxRotation = 100;
@@ -19,7 +17,8 @@ public class InputPlayer : MonoBehaviour
     private List<CubeChildren> ChildrenObjects;
 
     public static event Action OnPointScore;
-    private int points = 0;
+    [SerializeField]
+    private VoidEventChannelSO resetChannel;
 
     private void Awake()
     {
@@ -33,13 +32,16 @@ public class InputPlayer : MonoBehaviour
         JumpAction.Enable();
         JumpAction.performed += Jump;
         CubeChildren.OnTouchDown += OnTouchDown;
+        resetChannel.OnEventRaised += ResetCubes;
     }
 
-    
+
     private void OnDisable()
     {
         JumpAction.Disable();
+        JumpAction.performed -= Jump;
         CubeChildren.OnTouchDown -= OnTouchDown;
+        resetChannel.OnEventRaised -= ResetCubes;
 
     }
 
@@ -76,6 +78,18 @@ public class InputPlayer : MonoBehaviour
             }
         }
 
+    }
+
+
+    private void ResetCubes()
+    {
+        for (int i =0; i<ChildrenObjects.Count;i++)
+        {
+            Destroy(ChildrenObjects[i].gameObject);
+        }
+        ChildrenObjects = new List<CubeChildren>();
+        GameObject cube = GameObject.Instantiate(CubeObject, new Vector3(0, 1, 0), this.transform.rotation, this.transform);
+        ChildrenObjects.Add(cube.GetComponent<CubeChildren>());
     }
 
     // Update is called once per frame

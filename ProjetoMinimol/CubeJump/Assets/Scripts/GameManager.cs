@@ -60,6 +60,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private VoidEventChannelSO p2StartChannel;
     [SerializeField]
+    private VoidEventChannelSO resetChannel;
+    [SerializeField]
     private IntEventChannelSO pointChannel;
 
     #endregion
@@ -74,7 +76,14 @@ public class GameManager : MonoBehaviour
         defeatChannel.OnEventRaised += GameManager_OnDefeat;
         p1StartChannel.OnEventRaised += Start1PGame;
         p2StartChannel.OnEventRaised += Start2PGame;
+        resetChannel.OnEventRaised += ResetGame;
 
+    }
+
+    private void ResetGame()
+    {
+        m_GameState = GameState.STATE_PAUSE;
+        ResetPoints();
     }
 
     private void Start1PGame()
@@ -96,6 +105,8 @@ public class GameManager : MonoBehaviour
 
     private void OnPointScore()
     {
+        if (m_GameState == GameState.STATE_PAUSE)
+            return;
         m_currentPoints++;
         pointChannel.RaiseEvent(m_currentPoints);
         if (IsMaxedCubes) 
@@ -117,6 +128,9 @@ public class GameManager : MonoBehaviour
     private void ResetPoints()
     {
         m_currentPoints = 0;
+        m_pointsAfterMaxCubes = 0;
+        pointChannel.RaiseEvent(m_currentPoints);
+
     }
 
     private void OnDisable()
