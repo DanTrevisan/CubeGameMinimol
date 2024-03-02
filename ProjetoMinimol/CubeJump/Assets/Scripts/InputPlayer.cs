@@ -3,18 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.InputSystem.DefaultInputActions;
 public class InputPlayer : MonoBehaviour
 {
-    public Input InputMap;
     public Vector3 JumpForce;
     public int maxChildren = 20;
     public int minRotation = 50;
     public int maxRotation = 100;
     public Vector2 minMaxX;
     public Vector2 minMaxZ;
-    private InputAction JumpAction;
+    public int nudgeForce;
     public GameObject CubeObject;
     private List<CubeChildren> ChildrenObjects;
+
+    #region Input
+    public Input InputMap;
+    private InputAction JumpAction;
+    private InputAction UpAction;
+    private InputAction DownAction;
+    private InputAction LeftAction;
+    private InputAction RightAction;
+    #endregion
 
     public static event Action OnPointScore;
     [SerializeField]
@@ -31,10 +40,80 @@ public class InputPlayer : MonoBehaviour
         JumpAction = InputMap.Main.Jump;
         JumpAction.Enable();
         JumpAction.performed += Jump;
+
+        UpAction = InputMap.Main.UpNudge;
+        UpAction.Enable();
+        UpAction.performed += UpNudge;
+
+        DownAction = InputMap.Main.DownNudge;
+        DownAction.Enable();
+        DownAction.performed += DownNudge;
+
+        LeftAction = InputMap.Main.LeftNudge;
+        LeftAction.Enable();
+        LeftAction.performed += LeftNudge;
+
+        RightAction = InputMap.Main.RightNudge;
+        RightAction.Enable();
+        RightAction.performed += RightNudge;
+
         CubeChildren.OnTouchDown += OnTouchDown;
         resetChannel.OnEventRaised += ResetCubes;
     }
 
+    private void RightNudge(InputAction.CallbackContext context)
+    {
+        if (GameManager.GameState == GameState.STATE_PAUSE)
+            return;
+        foreach (var cubeChild in ChildrenObjects)
+        {
+            if (!cubeChild.onFloor)
+            {
+                cubeChild.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, -nudgeForce));
+
+            }
+        }
+    }
+
+    private void LeftNudge(InputAction.CallbackContext context)
+    {
+        if (GameManager.GameState == GameState.STATE_PAUSE)
+            return;
+        foreach (var cubeChild in ChildrenObjects)
+        {
+            if (!cubeChild.onFloor)
+            {
+                cubeChild.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, nudgeForce));
+
+            }
+        }
+    }
+
+    private void DownNudge(InputAction.CallbackContext context)
+    {
+        if (GameManager.GameState == GameState.STATE_PAUSE)
+            return;
+        foreach (var cubeChild in ChildrenObjects)
+        {
+            if (!cubeChild.onFloor)
+            {
+                cubeChild.GetComponent<Rigidbody>().AddForce(new Vector3(-nudgeForce, 0, 0));
+            }
+        }
+    }
+
+    private void UpNudge(InputAction.CallbackContext context)
+    {
+        if (GameManager.GameState == GameState.STATE_PAUSE)
+            return;
+        foreach (var cubeChild in ChildrenObjects)
+        {
+            if (!cubeChild.onFloor)
+            {
+                cubeChild.GetComponent<Rigidbody>().AddForce(new Vector3(nudgeForce,0,0));
+            }
+        }
+    }
 
     private void OnDisable()
     {
@@ -105,6 +184,4 @@ public class InputPlayer : MonoBehaviour
             }
         }
     }
-
-    
 }

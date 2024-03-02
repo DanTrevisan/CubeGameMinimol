@@ -50,6 +50,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private static bool m_isMultiplayerMode = false;
+    public static bool isMultiplayerMode
+    {
+        get
+        {
+            return m_isMultiplayerMode;
+        }
+        set
+        {
+            m_isMultiplayerMode = value;
+        }
+    }
+
     #region Events
     [SerializeField]
     private VoidEventChannelSO defeatChannel;
@@ -89,10 +102,12 @@ public class GameManager : MonoBehaviour
     private void Start1PGame()
     {
         m_GameState = GameState.STATE_PLAYING;
+        isMultiplayerMode = false;
     }
     private void Start2PGame()
     {
         m_GameState = GameState.STATE_PLAYING;
+        isMultiplayerMode = true;
     }
     private void GameManager_OnDefeat()
     {

@@ -35,6 +35,42 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UpNudge"",
+                    ""type"": ""Button"",
+                    ""id"": ""e26c6d47-6a16-4d51-b04d-6d5c231fd041"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""DownNudge"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b072799-a732-4579-ba50-4bd7a442d707"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftNudge"",
+                    ""type"": ""Button"",
+                    ""id"": ""0f2e35e2-f8fc-48e7-afb9-e2b495cfd378"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightNudge"",
+                    ""type"": ""Button"",
+                    ""id"": ""0e6198fe-8d42-4368-ab1a-2beb9804ded0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -48,6 +84,94 @@ public partial class @Input: IInputActionCollection2, IDisposable
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0b00c38c-a44e-404c-8e07-7b24860e6e97"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UpNudge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9ad3a0a4-46f5-4f8b-838f-2b7c67e6b110"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UpNudge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e5717325-8c73-4a6e-9521-dddd7012921c"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DownNudge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""80c78406-c3fd-4253-8b1f-0f802873b383"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""DownNudge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""35d58412-891a-4ed0-8a1b-77833669e413"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftNudge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""800c3a27-a17e-49f8-b246-56fd6ccf1d94"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftNudge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6e8cd15f-24d1-49c2-8d65-88ddf961126a"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightNudge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f9f58722-7dc9-4d1d-9a1a-da789acb8e2a"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightNudge"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -57,6 +181,10 @@ public partial class @Input: IInputActionCollection2, IDisposable
         // Main
         m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
         m_Main_Jump = m_Main.FindAction("Jump", throwIfNotFound: true);
+        m_Main_UpNudge = m_Main.FindAction("UpNudge", throwIfNotFound: true);
+        m_Main_DownNudge = m_Main.FindAction("DownNudge", throwIfNotFound: true);
+        m_Main_LeftNudge = m_Main.FindAction("LeftNudge", throwIfNotFound: true);
+        m_Main_RightNudge = m_Main.FindAction("RightNudge", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -119,11 +247,19 @@ public partial class @Input: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Main;
     private List<IMainActions> m_MainActionsCallbackInterfaces = new List<IMainActions>();
     private readonly InputAction m_Main_Jump;
+    private readonly InputAction m_Main_UpNudge;
+    private readonly InputAction m_Main_DownNudge;
+    private readonly InputAction m_Main_LeftNudge;
+    private readonly InputAction m_Main_RightNudge;
     public struct MainActions
     {
         private @Input m_Wrapper;
         public MainActions(@Input wrapper) { m_Wrapper = wrapper; }
         public InputAction @Jump => m_Wrapper.m_Main_Jump;
+        public InputAction @UpNudge => m_Wrapper.m_Main_UpNudge;
+        public InputAction @DownNudge => m_Wrapper.m_Main_DownNudge;
+        public InputAction @LeftNudge => m_Wrapper.m_Main_LeftNudge;
+        public InputAction @RightNudge => m_Wrapper.m_Main_RightNudge;
         public InputActionMap Get() { return m_Wrapper.m_Main; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -136,6 +272,18 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @UpNudge.started += instance.OnUpNudge;
+            @UpNudge.performed += instance.OnUpNudge;
+            @UpNudge.canceled += instance.OnUpNudge;
+            @DownNudge.started += instance.OnDownNudge;
+            @DownNudge.performed += instance.OnDownNudge;
+            @DownNudge.canceled += instance.OnDownNudge;
+            @LeftNudge.started += instance.OnLeftNudge;
+            @LeftNudge.performed += instance.OnLeftNudge;
+            @LeftNudge.canceled += instance.OnLeftNudge;
+            @RightNudge.started += instance.OnRightNudge;
+            @RightNudge.performed += instance.OnRightNudge;
+            @RightNudge.canceled += instance.OnRightNudge;
         }
 
         private void UnregisterCallbacks(IMainActions instance)
@@ -143,6 +291,18 @@ public partial class @Input: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @UpNudge.started -= instance.OnUpNudge;
+            @UpNudge.performed -= instance.OnUpNudge;
+            @UpNudge.canceled -= instance.OnUpNudge;
+            @DownNudge.started -= instance.OnDownNudge;
+            @DownNudge.performed -= instance.OnDownNudge;
+            @DownNudge.canceled -= instance.OnDownNudge;
+            @LeftNudge.started -= instance.OnLeftNudge;
+            @LeftNudge.performed -= instance.OnLeftNudge;
+            @LeftNudge.canceled -= instance.OnLeftNudge;
+            @RightNudge.started -= instance.OnRightNudge;
+            @RightNudge.performed -= instance.OnRightNudge;
+            @RightNudge.canceled -= instance.OnRightNudge;
         }
 
         public void RemoveCallbacks(IMainActions instance)
@@ -163,5 +323,9 @@ public partial class @Input: IInputActionCollection2, IDisposable
     public interface IMainActions
     {
         void OnJump(InputAction.CallbackContext context);
+        void OnUpNudge(InputAction.CallbackContext context);
+        void OnDownNudge(InputAction.CallbackContext context);
+        void OnLeftNudge(InputAction.CallbackContext context);
+        void OnRightNudge(InputAction.CallbackContext context);
     }
 }
