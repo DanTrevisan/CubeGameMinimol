@@ -44,7 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 542a92c9f1a67b74a8724a5d7034861e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pointsVictory: 20
   defeatChannel: {fileID: 11400000, guid: b21071d7eef7d4c488a43f216be9b1e8, type: 2}
+  victoryChannel: {fileID: 11400000, guid: 4c23231e21fbd4544894c36c652cbbe5, type: 2}
   p1StartChannel: {fileID: 11400000, guid: 283450c96aa274048bcff4fe875e826f, type: 2}
   p2StartChannel: {fileID: 11400000, guid: 674156ccdc581aa42adb0cbda7c0d4b2, type: 2}
+  pointChannel: {fileID: 11400000, guid: fa47728af6497e44e8c1779e7d8fd3ad, type: 2}

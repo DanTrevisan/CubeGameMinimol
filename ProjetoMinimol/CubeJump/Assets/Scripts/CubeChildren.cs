@@ -25,15 +25,15 @@ public class CubeChildren : MonoBehaviour
             GetComponent<Rigidbody>().velocity = Vector3.zero;
             GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             onFloor = true;
-            foreach (var cube in cubeColliders)
-            {
-                if (cube.IsThisLastFace == true && lastFaceOnFloor != cube)
-                {
-                    lastFaceOnFloor = cube;
-                    //Debug.Log("PONTO!");
-                    OnTouchDown?.Invoke(this);
-                }
-            }
+        }
+    }
+
+    public void SetLastFace(CubeCollider col)
+    {
+        if (lastFaceOnFloor != col)
+        {
+            lastFaceOnFloor = col;
+            OnTouchDown?.Invoke(this);
         }
     }
 

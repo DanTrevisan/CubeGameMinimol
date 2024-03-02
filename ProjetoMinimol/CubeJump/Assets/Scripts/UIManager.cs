@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class UIManager : MonoBehaviour
 {
@@ -21,6 +23,8 @@ public class UIManager : MonoBehaviour
     public GameObject endUI;
     public GameObject playerTurnUI;
 
+    public TextMeshProUGUI textVictory;
+
     private void Start()
     {
         defeatChannel.OnEventRaised += CallDefeatScreen;
@@ -29,23 +33,30 @@ public class UIManager : MonoBehaviour
 
     private void CallVictoryScreen()
     {
-        throw new NotImplementedException();
+        endUI.SetActive(true);
+        scoreUI.SetActive(false);
+        textVictory.text = "Victory!";
     }
 
     private void CallDefeatScreen()
     {
         endUI.SetActive(true);
+        scoreUI.SetActive(false);
+        textVictory.text = "Defeat...";
+
     }
 
     public void StartP1Game()
     {
         start1pGame.RaiseEvent();
+        scoreUI.SetActive(true);
         startUI.SetActive(false);
     }
 
     public void StartP2Game()
     {
         start2pGame.RaiseEvent();
+        scoreUI.SetActive(true);
         startUI.SetActive(false);
 
     }

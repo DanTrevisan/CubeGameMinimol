@@ -247,8 +247,9 @@ GameObject:
   - component: {fileID: 4566123778035469109}
   - component: {fileID: 1040171261291050441}
   - component: {fileID: 597247296925382175}
+  - component: {fileID: 5122834346602407771}
   m_Layer: 5
-  m_Name: Text Score
+  m_Name: TextScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -370,6 +371,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &5122834346602407771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600977132608972795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8bce79540dd544984b16d257c3172a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointChannel: {fileID: 11400000, guid: fa47728af6497e44e8c1779e7d8fd3ad, type: 2}
 --- !u!1 &823183371662648666
 GameObject:
   m_ObjectHideFlags: 0
@@ -725,7 +739,7 @@ GameObject:
   - component: {fileID: 4745931778757501862}
   - component: {fileID: 1070725213486186455}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TextVictory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1304,8 +1318,9 @@ GameObject:
   - component: {fileID: 4907199931345666264}
   - component: {fileID: 4840196286571054420}
   - component: {fileID: 6569577943633143592}
+  - component: {fileID: 3981348522691775461}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TextScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1427,6 +1442,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3981348522691775461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3926882154932834971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8bce79540dd544984b16d257c3172a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointChannel: {fileID: 11400000, guid: fa47728af6497e44e8c1779e7d8fd3ad, type: 2}
 --- !u!1 &3983668695821532486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1588,6 +1616,7 @@ MonoBehaviour:
   scoreUI: {fileID: 94765882511257936}
   endUI: {fileID: 5289083529880628526}
   playerTurnUI: {fileID: 1789847988408619328}
+  textVictory: {fileID: 1070725213486186455}
 --- !u!1 &5289083529880628526
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ public class InputPlayer : MonoBehaviour
     private List<CubeChildren> ChildrenObjects;
 
     public static event Action OnPointScore;
-
+    private int points = 0;
 
     private void Awake()
     {
@@ -47,10 +47,17 @@ public class InputPlayer : MonoBehaviour
     {
         if(ChildrenObjects.Count < maxChildren && cubeDown.didScorePointThisJump == false)
         {
+            OnPointScore.Invoke();
             cubeDown.didScorePointThisJump = true;
             Vector3 instantiatePos = new Vector3(UnityEngine.Random.Range(minMaxX.x, minMaxX.y), 0.5f, UnityEngine.Random.Range(minMaxZ.x, minMaxZ.y));
             GameObject cube = GameObject.Instantiate(CubeObject, instantiatePos, this.transform.rotation, this.transform);
             ChildrenObjects.Add(cube.GetComponent<CubeChildren>());
+        }
+        if(ChildrenObjects.Count >= maxChildren)
+        {
+            GameManager.IsMaxedCubes = true;
+            cubeDown.didScorePointThisJump = true;
+            OnPointScore.Invoke();
         }
     }
 

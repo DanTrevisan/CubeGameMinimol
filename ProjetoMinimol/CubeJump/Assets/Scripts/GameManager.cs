@@ -25,22 +25,48 @@ public class GameManager : MonoBehaviour
     }
 
     private static GameState m_GameState;
-    private int m_currentPoints = 0;
-
-    public int pointsVictory = 20;
+    private static int m_points;
+    private static int CurrentPoints
+    {
+        get
+        {
+            return m_points;
+        }
+        set
+        {
+            m_points = value;
+        }
+    }
+    private static bool m_isMaxedCubes = false;
+    public static bool IsMaxedCubes
+    {
+        get
+        {
+            return m_isMaxedCubes;
+        }
+        set
+        {
+            m_isMaxedCubes = value;
+        }
+    }
 
     #region Events
-    public static event Action OnVictory;
-    public static event Action OnDefeat;
     [SerializeField]
     private VoidEventChannelSO defeatChannel;
+    [SerializeField]
+    private VoidEventChannelSO victoryChannel;
     [SerializeField]
     private VoidEventChannelSO p1StartChannel;
     [SerializeField]
     private VoidEventChannelSO p2StartChannel;
+    [SerializeField]
+    private IntEventChannelSO pointChannel;
 
     #endregion
 
+    private int m_currentPoints = 0;
+    private int m_pointsAfterMaxCubes = 0;
+    private int m_pointsBeforeMaxCubesToWin = 10;
 
     void Start()
     {
@@ -64,16 +90,26 @@ public class GameManager : MonoBehaviour
         if(GameState == GameState.STATE_PAUSE) { return; }
         m_GameState = GameState.STATE_PAUSE;
         Debug.Log("Defeat!");
+        pointChannel.RaiseEvent(m_currentPoints);
         ResetPoints();
     }
 
     private void OnPointScore()
     {
         m_currentPoints++;
-        if (m_currentPoints >= pointsVictory) 
+        pointChannel.RaiseEvent(m_currentPoints);
+        if (IsMaxedCubes) 
         {
-            Debug.Log("Victory!");
-            OnVictory?.Invoke();
+            m_pointsAfterMaxCubes++;
+            if (m_pointsAfterMaxCubes >= m_pointsBeforeMaxCubesToWin)
+            {
+                Debug.Log("Victory!");
+                m_GameState = GameState.STATE_PAUSE;
+                victoryChannel.RaiseEvent();
+                pointChannel.RaiseEvent(m_currentPoints);
+
+            }
+
         }
        // throw new NotImplementedException();
     }
@@ -90,8 +126,5 @@ public class GameManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

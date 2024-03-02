@@ -4,15 +4,13 @@ using UnityEngine;
 
 public class CubeCollider : MonoBehaviour
 {
-    public bool IsThisLastFace = false;
-
+    public CubeChildren MyCube;
     private void OnTriggerEnter(Collider other)
     {
-        if (IsThisLastFace)
-            return;
+
         if (other.CompareTag("Floor"))
         {
-            IsThisLastFace = true;
+            MyCube.SetLastFace(this);
         }
     }
 }
