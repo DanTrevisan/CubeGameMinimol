@@ -8,10 +8,14 @@ public class CubeChildren : MonoBehaviour
     // Start is called before the first frame update
     [HideInInspector]public bool onFloor = false;
     public List<CubeCollider> cubeColliders;
-    public CubeCollider lastCubeOnFloor;
+    public CubeCollider lastFaceOnFloor;
+    public bool didScorePointThisJump = true;
 
-    public static event Action OnTouchDown;
+    public static event Action<CubeChildren> OnTouchDown;
+    [HideInInspector] public Vector3 EulerAngleVelocity;
 
+    [SerializeField]
+    private VoidEventChannelSO m_defeatChannnel;
     private void OnCollisionEnter(Collision collision)
     {
         if (onFloor)
@@ -23,18 +27,26 @@ public class CubeChildren : MonoBehaviour
             onFloor = true;
             foreach (var cube in cubeColliders)
             {
-                if (cube.IsThisLastFace == true && lastCubeOnFloor != cube)
+                if (cube.IsThisLastFace == true && lastFaceOnFloor != cube)
                 {
-                    lastCubeOnFloor = cube;
-                    Debug.Log("PONTO!");
-                    OnTouchDown?.Invoke();
+                    lastFaceOnFloor = cube;
+                    //Debug.Log("PONTO!");
+                    OnTouchDown?.Invoke(this);
                 }
             }
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Defeat")
+        {
+            m_defeatChannnel.RaiseEvent();
+        }
+    }
     void Start()
     {
-        lastCubeOnFloor = cubeColliders[0];
+        lastFaceOnFloor = cubeColliders[0];
     }
 
     // Update is called once per frame
