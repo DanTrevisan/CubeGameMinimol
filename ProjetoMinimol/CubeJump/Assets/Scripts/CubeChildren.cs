@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//This class is used to detect if the cube is on the floor, and to store which of the faces are on the floor.
 public class CubeChildren : MonoBehaviour
 {
-    // Start is called before the first frame update
     [HideInInspector]public bool onFloor = false;
     public List<CubeCollider> cubeColliders;
     public CubeCollider lastFaceOnFloor;
@@ -49,13 +49,6 @@ public class CubeChildren : MonoBehaviour
     void Start()
     {
         lastFaceOnFloor = cubeColliders[0];
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Debug.Log("angle valid? " + transform.localRotation.eulerAngles.x);
-
     }
 
 }

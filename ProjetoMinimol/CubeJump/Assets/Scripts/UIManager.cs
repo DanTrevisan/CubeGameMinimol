@@ -7,7 +7,7 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class UIManager : MonoBehaviour
 {
-
+    #region Events
     [SerializeField]
     private VoidEventChannelSO start1pGame;
     [SerializeField]
@@ -18,15 +18,20 @@ public class UIManager : MonoBehaviour
     private VoidEventChannelSO victoryChannel;
     [SerializeField]
     private VoidEventChannelSO resetChannel;
-    // Start is called before the first frame update
+    #endregion
 
-    public CanvasGroup startUI;
-    public CanvasGroup scoreUI;
-    public CanvasGroup endUI;
-    public GameObject playerTurnUI;
-
-    public TextMeshProUGUI textVictory;
-
+    #region UI Objects
+    [SerializeField]
+    private CanvasGroup startUI;
+    [SerializeField]
+    private CanvasGroup scoreUI;
+    [SerializeField]
+    private CanvasGroup endUI;
+    [SerializeField]
+    private GameObject playerTurnUI;
+    [SerializeField]
+    private TextMeshProUGUI textVictory;
+    #endregion
     private void Start()
     {
         defeatChannel.OnEventRaised += CallDefeatScreen;
@@ -40,6 +45,7 @@ public class UIManager : MonoBehaviour
         endUI.blocksRaycasts = true;
 
         scoreUI.alpha = 0;
+        //This game has only a few strings of text, but the texts should be on a localization sheet in a full game.
         textVictory.text = "Victory!";
     }
 
@@ -85,5 +91,11 @@ public class UIManager : MonoBehaviour
         playerTurnUI.SetActive(false);
         resetChannel.RaiseEvent();
 
+    }
+
+    private void OnDestroy()
+    {
+        defeatChannel.OnEventRaised -= CallDefeatScreen;
+        victoryChannel.OnEventRaised -= CallVictoryScreen;
     }
 }

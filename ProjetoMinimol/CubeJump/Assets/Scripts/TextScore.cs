@@ -10,7 +10,6 @@ public class TextScore : MonoBehaviour
     private IntEventChannelSO pointChannel;
 
     private TextMeshProUGUI textScore;
-    // Start is called before the first frame update
     void Start()
     {
         textScore = this.GetComponent<TextMeshProUGUI>();
@@ -20,6 +19,7 @@ public class TextScore : MonoBehaviour
 
     private void OnPointChange(int score)
     {
+        //This game has only a few strings of text, but the texts should be on a localization sheet in a full game.
         textScore.text = "Score: " + score;
     }
 }

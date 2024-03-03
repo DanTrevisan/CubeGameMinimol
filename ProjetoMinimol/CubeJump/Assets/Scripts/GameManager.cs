@@ -11,7 +11,7 @@ public enum GameState
 }
 public class GameManager : MonoBehaviour
 {
-
+    #region variables
     public static GameState GameState
     {
         get
@@ -63,6 +63,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private int m_currentPoints = 0;
+    private int m_pointsAfterMaxCubes = 0;
+    #endregion
     #region Events
     [SerializeField]
     private VoidEventChannelSO defeatChannel;
@@ -78,9 +81,6 @@ public class GameManager : MonoBehaviour
     private IntEventChannelSO pointChannel;
 
     #endregion
-
-    private int m_currentPoints = 0;
-    private int m_pointsAfterMaxCubes = 0;
 
     #region GameParameters
 
@@ -108,6 +108,8 @@ public class GameManager : MonoBehaviour
         m_GameState = GameState.STATE_PLAYING;
         isMultiplayerMode = false;
     }
+
+    //Not actually used
     private void Start2PGame()
     {
         m_GameState = GameState.STATE_PLAYING;
@@ -157,7 +159,4 @@ public class GameManager : MonoBehaviour
         defeatChannel.OnEventRaised -= GameManager_OnDefeat;
 
     }
-
-    // Update is called once per frame
-
 }

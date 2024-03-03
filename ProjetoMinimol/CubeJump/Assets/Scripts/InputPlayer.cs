@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.InputSystem.DefaultInputActions;
+
+//This class is mainly respinsible for detecting the inputs and moving the blocks according to inputs.
 public class InputPlayer : MonoBehaviour
 {
     
     public GameObject CubeObject;
     private List<CubeChildren> ChildrenObjects;
+    public GameParametersSO gameParameters;
 
     #region Input
     public Input InputMap;
@@ -19,11 +21,11 @@ public class InputPlayer : MonoBehaviour
     private InputAction RightAction;
     #endregion
 
+    #region events
     public static event Action OnPointScore;
     [SerializeField]
     private VoidEventChannelSO resetChannel;
-
-    public GameParametersSO gameParameters;
+    #endregion
 
     private void Awake()
     {
@@ -111,14 +113,7 @@ public class InputPlayer : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        JumpAction.Disable();
-        JumpAction.performed -= Jump;
-        CubeChildren.OnTouchDown -= OnTouchDown;
-        resetChannel.OnEventRaised -= ResetCubes;
-
-    }
+   
 
     private void OnTouchDown(CubeChildren cubeDown)
     {
@@ -168,7 +163,6 @@ public class InputPlayer : MonoBehaviour
         ChildrenObjects.Add(cube.GetComponent<CubeChildren>());
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         foreach (var cubeChild in ChildrenObjects)
@@ -180,5 +174,14 @@ public class InputPlayer : MonoBehaviour
                 rb.MoveRotation(rb.rotation * deltaRotation);
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        JumpAction.Disable();
+        JumpAction.performed -= Jump;
+        CubeChildren.OnTouchDown -= OnTouchDown;
+        resetChannel.OnEventRaised -= ResetCubes;
+
     }
 }
