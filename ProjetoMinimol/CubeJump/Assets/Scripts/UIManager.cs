@@ -20,9 +20,9 @@ public class UIManager : MonoBehaviour
     private VoidEventChannelSO resetChannel;
     // Start is called before the first frame update
 
-    public GameObject startUI;
-    public GameObject scoreUI;
-    public GameObject endUI;
+    public CanvasGroup startUI;
+    public CanvasGroup scoreUI;
+    public CanvasGroup endUI;
     public GameObject playerTurnUI;
 
     public TextMeshProUGUI textVictory;
@@ -35,15 +35,21 @@ public class UIManager : MonoBehaviour
 
     private void CallVictoryScreen()
     {
-        endUI.SetActive(true);
-        scoreUI.SetActive(false);
+        endUI.alpha = 1;
+        endUI.interactable = true;
+        endUI.blocksRaycasts = true;
+
+        scoreUI.alpha = 0;
         textVictory.text = "Victory!";
     }
 
     private void CallDefeatScreen()
     {
-        endUI.SetActive(true);
-        scoreUI.SetActive(false);
+        endUI.alpha = 1;
+        endUI.interactable = true;
+        endUI.blocksRaycasts = true;
+
+        scoreUI.alpha = 0;
         textVictory.text = "Defeat...";
 
     }
@@ -51,23 +57,31 @@ public class UIManager : MonoBehaviour
     public void StartP1Game()
     {
         start1pGame.RaiseEvent();
-        scoreUI.SetActive(true);
-        startUI.SetActive(false);
+        scoreUI.alpha = 1;
+        startUI.alpha = 0;
+        startUI.interactable = false;
+        startUI.blocksRaycasts = false;
+
     }
 
     public void StartP2Game()
     {
         start2pGame.RaiseEvent();
-        scoreUI.SetActive(true);
-        startUI.SetActive(false);
-
+        scoreUI.alpha = 1;
+        startUI.alpha = 0;
+        startUI.interactable = false;
+        startUI.blocksRaycasts = false;
     }
 
     public void CallResetGame()
     {
-        endUI.SetActive(false);
-        scoreUI.SetActive(false);
-        startUI.SetActive(true);
+        endUI.alpha = 0;
+        endUI.interactable = false;
+        endUI.blocksRaycasts = false;
+        scoreUI.alpha = 0;
+        startUI.alpha = 1;
+        startUI.interactable = true;
+        startUI.blocksRaycasts = true;
         playerTurnUI.SetActive(false);
         resetChannel.RaiseEvent();
 

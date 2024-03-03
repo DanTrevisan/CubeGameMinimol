@@ -6,13 +6,7 @@ using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.DefaultInputActions;
 public class InputPlayer : MonoBehaviour
 {
-    public Vector3 JumpForce;
-    public int maxChildren = 20;
-    public int minRotation = 50;
-    public int maxRotation = 100;
-    public Vector2 minMaxX;
-    public Vector2 minMaxZ;
-    public int nudgeForce;
+    
     public GameObject CubeObject;
     private List<CubeChildren> ChildrenObjects;
 
@@ -28,6 +22,8 @@ public class InputPlayer : MonoBehaviour
     public static event Action OnPointScore;
     [SerializeField]
     private VoidEventChannelSO resetChannel;
+
+    public GameParametersSO gameParameters;
 
     private void Awake()
     {
@@ -69,7 +65,7 @@ public class InputPlayer : MonoBehaviour
         {
             if (!cubeChild.onFloor)
             {
-                cubeChild.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, -nudgeForce));
+                cubeChild.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, -gameParameters.nudgeForce));
 
             }
         }
@@ -83,7 +79,7 @@ public class InputPlayer : MonoBehaviour
         {
             if (!cubeChild.onFloor)
             {
-                cubeChild.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, nudgeForce));
+                cubeChild.GetComponent<Rigidbody>().AddForce(new Vector3(0, 0, gameParameters.nudgeForce));
 
             }
         }
@@ -97,7 +93,7 @@ public class InputPlayer : MonoBehaviour
         {
             if (!cubeChild.onFloor)
             {
-                cubeChild.GetComponent<Rigidbody>().AddForce(new Vector3(-nudgeForce, 0, 0));
+                cubeChild.GetComponent<Rigidbody>().AddForce(new Vector3(-gameParameters.nudgeForce, 0, 0));
             }
         }
     }
@@ -110,7 +106,7 @@ public class InputPlayer : MonoBehaviour
         {
             if (!cubeChild.onFloor)
             {
-                cubeChild.GetComponent<Rigidbody>().AddForce(new Vector3(nudgeForce,0,0));
+                cubeChild.GetComponent<Rigidbody>().AddForce(new Vector3(gameParameters.nudgeForce, 0,0));
             }
         }
     }
@@ -126,15 +122,16 @@ public class InputPlayer : MonoBehaviour
 
     private void OnTouchDown(CubeChildren cubeDown)
     {
-        if(ChildrenObjects.Count < maxChildren && cubeDown.didScorePointThisJump == false)
+        if(ChildrenObjects.Count < gameParameters.maxChildren && cubeDown.didScorePointThisJump == false)
         {
             OnPointScore.Invoke();
             cubeDown.didScorePointThisJump = true;
-            Vector3 instantiatePos = new Vector3(UnityEngine.Random.Range(minMaxX.x, minMaxX.y), 0.5f, UnityEngine.Random.Range(minMaxZ.x, minMaxZ.y));
+            Vector3 instantiatePos = new Vector3(UnityEngine.Random.Range(gameParameters.minMaxX.x, gameParameters.minMaxZ.y), 0.5f, 
+                UnityEngine.Random.Range(gameParameters.minMaxX.x, gameParameters.minMaxZ.y));
             GameObject cube = GameObject.Instantiate(CubeObject, instantiatePos, this.transform.rotation, this.transform);
             ChildrenObjects.Add(cube.GetComponent<CubeChildren>());
         }
-        if(ChildrenObjects.Count >= maxChildren)
+        if(ChildrenObjects.Count >= gameParameters.maxChildren)
         {
             GameManager.IsMaxedCubes = true;
             cubeDown.didScorePointThisJump = true;
@@ -150,8 +147,8 @@ public class InputPlayer : MonoBehaviour
         {
             if (cubeChild.onFloor)
             {
-                cubeChild.GetComponent<Rigidbody>().AddForce(JumpForce);
-                cubeChild.EulerAngleVelocity = new Vector3(UnityEngine.Random.Range(minRotation - 1, maxRotation), 0, 0);
+                cubeChild.GetComponent<Rigidbody>().AddForce(gameParameters.JumpForce);
+                cubeChild.EulerAngleVelocity = new Vector3(UnityEngine.Random.Range(gameParameters.minRotation - 1, gameParameters.maxRotation), 0, 0);
                 cubeChild.onFloor = false;
                 cubeChild.didScorePointThisJump = false;
             }

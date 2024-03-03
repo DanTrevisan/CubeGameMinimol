@@ -12,13 +12,14 @@ GameObject:
   - component: {fileID: 7498225784927093439}
   - component: {fileID: 7267062200290762819}
   - component: {fileID: 1245986330297202}
+  - component: {fileID: 6194609479122431390}
   m_Layer: 5
   m_Name: CanvasScore
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5800100647104875565
 RectTransform:
   m_ObjectHideFlags: 0
@@ -103,6 +104,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &6194609479122431390
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 94765882511257936}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &531942329368501475
 GameObject:
   m_ObjectHideFlags: 0
@@ -1601,6 +1614,7 @@ GameObject:
   - component: {fileID: 729505262456018467}
   - component: {fileID: 5236783643488258589}
   - component: {fileID: 1481879585042162718}
+  - component: {fileID: 4509035028275246249}
   m_Layer: 5
   m_Name: CanvasStart
   m_TagString: Untagged
@@ -1695,6 +1709,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &4509035028275246249
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3983668695821532486}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &4986081521587031761
 GameObject:
   m_ObjectHideFlags: 0
@@ -1748,9 +1774,9 @@ MonoBehaviour:
   defeatChannel: {fileID: 11400000, guid: b21071d7eef7d4c488a43f216be9b1e8, type: 2}
   victoryChannel: {fileID: 11400000, guid: 4c23231e21fbd4544894c36c652cbbe5, type: 2}
   resetChannel: {fileID: 11400000, guid: f24780baa6596e14cbf924da85df4a79, type: 2}
-  startUI: {fileID: 3983668695821532486}
-  scoreUI: {fileID: 94765882511257936}
-  endUI: {fileID: 5289083529880628526}
+  startUI: {fileID: 4509035028275246249}
+  scoreUI: {fileID: 6194609479122431390}
+  endUI: {fileID: 8636862989368957205}
   playerTurnUI: {fileID: 1789847988408619328}
   textVictory: {fileID: 1070725213486186455}
 --- !u!1 &5289083529880628526
@@ -1765,13 +1791,14 @@ GameObject:
   - component: {fileID: 263976097245644698}
   - component: {fileID: 7209171980018990830}
   - component: {fileID: 2087716607937421987}
+  - component: {fileID: 8636862989368957205}
   m_Layer: 5
   m_Name: CanvasEndgame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2435479909762166648
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1858,6 +1885,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &8636862989368957205
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5289083529880628526}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &5472514937481565259
 GameObject:
   m_ObjectHideFlags: 0

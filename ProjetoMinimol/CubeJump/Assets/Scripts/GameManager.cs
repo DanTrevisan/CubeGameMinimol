@@ -81,7 +81,11 @@ public class GameManager : MonoBehaviour
 
     private int m_currentPoints = 0;
     private int m_pointsAfterMaxCubes = 0;
-    private int m_pointsBeforeMaxCubesToWin = 10;
+
+    #region GameParameters
+
+    public GameParametersSO GameParameters;
+    #endregion
 
     void Start()
     {
@@ -115,7 +119,6 @@ public class GameManager : MonoBehaviour
         m_GameState = GameState.STATE_PAUSE;
         Debug.Log("Defeat!");
         pointChannel.RaiseEvent(m_currentPoints);
-        ResetPoints();
     }
 
     private void OnPointScore()
@@ -127,7 +130,7 @@ public class GameManager : MonoBehaviour
         if (IsMaxedCubes) 
         {
             m_pointsAfterMaxCubes++;
-            if (m_pointsAfterMaxCubes >= m_pointsBeforeMaxCubesToWin)
+            if (m_pointsAfterMaxCubes >= GameParameters.m_pointsBeforeMaxCubesToWin)
             {
                 Debug.Log("Victory!");
                 m_GameState = GameState.STATE_PAUSE;
@@ -144,6 +147,7 @@ public class GameManager : MonoBehaviour
     {
         m_currentPoints = 0;
         m_pointsAfterMaxCubes = 0;
+        m_isMaxedCubes = false;
         pointChannel.RaiseEvent(m_currentPoints);
 
     }
